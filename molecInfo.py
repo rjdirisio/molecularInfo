@@ -40,6 +40,16 @@ class molecInfo:
               la.norm(b2,axis=1) * b1
         return bis / la.norm(bis,axis=1)
 
+    def dihedral(self,vec1,vec2,vec3):
+        """Looking down vec2, calculate dihedral angle
+        # https://stackoverflow.com/questions/20305272/dihedral-torsion-angle-from-four-points-in-cartesian-coordinates-in-python
+        """
+        crossterm1 = np.cross(np.cross(vec1, vec2, axis=1), np.cross(vec2, vec3, axis=1), axis=1)
+        term1 = self.dotPdt(crossterm1 , (vec2 / la.norm(vec2, axis=1)[:, np.newaxis]))
+        term2 = self.dotPdt(np.cross(vec1, vec2, axis=1) , np.cross(vec2, vec3, axis=1))
+        dh = np.arctan2(term1, term2)
+        return dh
+
     def getComponent(self,atm,xyz):
         """Get x, y, or z component of a vector that corresponds to a particular atom in the predetermined cooridnate
         system.
