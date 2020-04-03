@@ -38,7 +38,7 @@ class molRotator:
 
 
         @classmethod
-        def genEckart(cls,geoms,refGeom,masses,planar=False,retMat=False):
+        def genEckart(cls,geoms,refGeom,masses,planar=False):
             """Old code. Need to rework so there aren't so many transposes.
             Generate rotation matrices such that geometries to look *the most* like the reference geometry, following:
             Eckart vectors, Eckart frames, and polyatomic molecules - James D. Louck and Harold W. Galbraith
@@ -51,8 +51,7 @@ class molRotator:
             @type masses: list
             @param planar: whether or not the reference geometry is planar
             @type planar: boolean
-            @param retMat: whether or not to return the rotation matrix
-            @type retMat: boolean"""
+            """
             com = np.dot(masses, geoms) / np.sum(masses)
             refCOM = np.dot(masses, refGeom) / np.sum(masses)  # same as overal COM
             refGeom -= refCOM
@@ -98,7 +97,7 @@ class molRotator:
                 eckVecs2 = np.matmul(np.transpose(myF, (0, 2, 1)), invRootF2)
             mas = np.where(np.around(la.det(eckVecs2)) == -1.0)[0] #inversion of coordinate system
             if mas > 0:
-                print("Inversion in coordinate system, be careful...")
+                raise Exception
             return com, eckVecs2.transpose(0,2,1)
 
 

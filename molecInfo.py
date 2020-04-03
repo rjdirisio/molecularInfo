@@ -60,7 +60,8 @@ class molecInfo:
         @return: """
         return self.xx[:,atm,xyz]
 
-    def cartToSpherical(self,vecc):
+    @staticmethod
+    def cartToSpherical(vecc):
         """Takes stack of vectors and translates them to stack of r theta phi coordinates,
         with the assumption that you are already in the coordinate system you desire."""
         r = la.norm(vecc, axis=1)
