@@ -18,6 +18,14 @@ class molecInfo:
         new_v2 = np.expand_dims(v2,axis=2)
         return np.matmul(new_v1, new_v2).squeeze()
 
+    @classmethod
+    def expVal(cls,thing,dw):
+        if len(thing.shape) > 1:
+            return np.average(thing,axis=0,weights=dw)
+        else:
+            return np.average(thing,weights=dw)
+
+
     def bondLength(self, atm1, atm2):
         return la.norm(self.xx[:,atm1] - self.xx[:,atm2],axis=1)
 
