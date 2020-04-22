@@ -1,2 +1,2 @@
-from .molecInfo import *
+from .moleculeInfo import *
 from .rotator import *
